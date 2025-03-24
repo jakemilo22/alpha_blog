@@ -11,4 +11,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # call pages_controller - home method / action
+  root 'pages#home'
+  # call using 'get' request to about page
+  get 'about', to: 'pages#about'
 end
