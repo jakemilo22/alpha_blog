@@ -1,0 +1,9 @@
+class CreateArticles < ActiveRecord::Migration[8.0]
+  def change
+    create_table :articles do |t|
+      #t.timestamps  # commented default as not needed in exercise
+      t.string :title
+      t.text :description
+    end
+  end
+end
