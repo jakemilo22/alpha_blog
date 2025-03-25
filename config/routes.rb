@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   # call pages_controller - home method / action
   root 'pages#home'
+  
   # call using 'get' request to about page
   get 'about', to: 'pages#about'
+
+  # resources - from Section 4.84 - 4.86 - Show Articles
+  resources :articles, only: [:show, :index]
 end
