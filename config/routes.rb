@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   # call using 'get' request to about page
   get 'about', to: 'pages#about'
 
-  # resources - from Section 4.84 - 4.86 - Show Articles
-  resources :articles, only: [:show, :index]
+  # resources - accesses app/controllers/articles_controller.rb - from Section 4.84 - 4.86 - Show Articles
+  resources :articles, only: [:show, :index, :new, :create]
 end
