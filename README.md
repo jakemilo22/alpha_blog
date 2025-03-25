@@ -23,3 +23,4 @@ Things you may want to cover:
 
 ** Home and About Pages added
 ** Added articles table
+** Add validations to articles table
