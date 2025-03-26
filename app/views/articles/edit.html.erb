@@ -1,4 +1,4 @@
-<h1>Create a new article</h1>
+<h1>Edit article</h1>
 
 <!-- adding validation checks from module 4.92 -->
 <% if @article.errors.any? %>
@@ -13,8 +13,7 @@
 <% end %>
 
 <!-- using "local: true only" applies to form_with  -->
-<!-- using "form_with scope" only gives you an empty form -->
-<%= form_with scope: :article, url: articles_path, data: {turbo: false}, local: true do |f| %>
+<%= form_with(model: @article, local: true) do |f| %>
     <p>
         <%= f.label :title %> <br/>
         <%= f.text_field :title %>

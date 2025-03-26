@@ -16,6 +16,22 @@ class ArticlesController < ApplicationController
     @article = Article.new 
   end
 
+  def edit
+    # @article is an instance variable that can be accessed outside (in edit.html.erb) of this code block
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    # update edited record
+    if @article.update(params.require(:article).permit(:title, :description))
+      flash[:notice] = "Article was updated successfully."
+      redirect_to @article
+    else
+      render 'edit'
+    end 
+  end 
+
   def create
     # render plain: params[:article] # render to UI  
     #@article = Article.new(params.require[:article])
