@@ -12,16 +12,26 @@ class ArticlesController < ApplicationController
   end 
 
   def new
-
+    # 
+    @article = Article.new 
   end
 
   def create
-   # render plain: params[:article] # render to UI  
-   #@article = Article.new(params.require[:article])
-   @article = Article.new(params.require(:article).permit(:title, :description))
-   @article.save # save to table articles
+    # render plain: params[:article] # render to UI  
+    #@article = Article.new(params.require[:article])
+    @article = Article.new(params.require(:article).permit(:title, :description))
+    
+    # validation approach if @article.save has no errors then redirect
+    if @article.save # save to table articles
 
-   # redirect will redirect to show based on following the routes it took "rails routes --expanded" articles#show
-   redirect_to article_path(@article)  # rails will extract id from @article and pass it to article_path
+      # flash = display message via views/layouts/application.html.erb body
+      flash[:notice] = "Article created successfully."
+
+      # redirect will redirect to show based on following the routes it took "rails routes --expanded" articles#show
+      redirect_to article_path(@article)  # rails will extract id from @article and pass it to article_path
+    else
+      # render new form again - showing validation messages (via new.html.erb)
+      render 'new' 
+    end 
   end 
 end

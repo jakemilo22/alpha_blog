@@ -1,7 +1,19 @@
 <h1>Create a new article</h1>
 
+<!-- adding validation checks from module 4.92 -->
+<% if @article.errors.any? %>
+    <h2>The following errors prevented the article from being saved</h2>
+    
+    <!-- ul = unordered list -->
+    <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+           <li> <%= msg %> </li>  <!-- li = list -->
+        <% end %>
+    </ul>    
+<% end %>
+
 <!-- using "local: true only" applies to form_with  -->
-<%= form_with scope: :article, url: articles_path, local: true do |f| %>
+<%= form_with scope: :article, url: articles_path, data: {turbo: false}, local: true do |f| %>
     <p>
         <%= f.label :title %> <br/>
         <%= f.text_field :title %>
