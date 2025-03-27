@@ -23,10 +23,13 @@
   </head>
 
   <body>
-    <!-- below flash is called from articles_controller.rb -->
+    <!-- below flash is called from articles_controller.rb 
     <% flash.each do |name, msg| %>
       <%= msg %>
     <% end %>
+    -->
+    
+    <%= render 'layouts/messages' %>  <!-- this will refer to app/views/layouts/messages.html.erb -->
     <%= yield %>
   </body>
 </html>

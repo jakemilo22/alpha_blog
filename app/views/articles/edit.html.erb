@@ -1,32 +1,5 @@
 <h1>Edit article</h1>
 
-<!-- adding validation checks from module 4.92 -->
-<% if @article.errors.any? %>
-    <h2>The following errors prevented the article from being saved</h2>
-    
-    <!-- ul = unordered list -->
-    <ul>
-        <% @article.errors.full_messages.each do |msg| %>
-           <li> <%= msg %> </li>  <!-- li = list -->
-        <% end %>
-    </ul>    
-<% end %>
-
-<!-- using "local: true only" applies to form_with  -->
-<%= form_with(model: @article, local: true) do |f| %>
-    <p>
-        <%= f.label :title %> <br/>
-        <%= f.text_field :title %>
-    </p>
-
-    <p>
-        <%= f.label :description%> <br/>
-        <%= f.text_field :description%>
-    </p> 
-
-    <p>
-        <%= f.submit %>
-    </p> 
-<% end %>
+<%= render 'form' %> <!-- this will call views/articles/form.html.erb --> 
 
 <%= link_to 'Cancel and return to articles listing', articles_path %> 
