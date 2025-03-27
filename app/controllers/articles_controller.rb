@@ -50,4 +50,11 @@ class ArticlesController < ApplicationController
       render 'new' 
     end 
   end 
+
+  def destroy
+    # @article is an instance variable that can be accessed outside (in destroy.html.erb) of this code block
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to articles_path # articles is taken from "rails routes -- expanded" prefix Route 5
+  end 
 end
