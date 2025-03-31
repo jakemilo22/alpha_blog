@@ -23,21 +23,11 @@ class ArticlesController < ApplicationController
     # @article is an instance variable that can be accessed outside (in edit.html.erb) of this code block
   end
 
-  def update
-    # update edited record
-    if @article.update(article_params)  # changed logic to use new article_params method
-      flash[:notice] = "Article was updated successfully."
-      redirect_to @article
-    else
-      render 'edit'
-    end 
-  end 
-
   def create
     # render plain: params[:article] # render to UI  
     #@article = Article.new(params.require[:article])
     @article = Article.new(article_params) # changed logic to use new article_params method
-    
+    @article.user = User.first
     # validation approach if @article.save has no errors then redirect
     if @article.save # save to table articles
 
@@ -49,6 +39,16 @@ class ArticlesController < ApplicationController
     else
       # render new form again - showing validation messages (via new.html.erb)
       render 'new' 
+    end 
+  end 
+  
+  def update
+    # update edited record
+    if @article.update(article_params)  # changed logic to use new article_params method
+      flash[:notice] = "Article was updated successfully."
+      redirect_to @article
+    else
+      render 'edit'
     end 
   end 
 
