@@ -2,6 +2,7 @@
 <!-- to access instance variables in ruby use "<%= %>" -->
 <p><strong>Title: <%= @article.title %></strong></p> 
 <p><strong>Description: <%= @article.description %></strong></p>
+<p><strong>User: <%= @article.user.username if @article.user %></strong></p>
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Delete', article_path(@article), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %> |
