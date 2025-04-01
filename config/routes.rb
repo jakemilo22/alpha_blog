@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   # resources - accesses app/controllers/articles_controller.rb - from Section 4.84 - 4.86 - Show Articles
   # resources :articles, only: [:show, :index, :new, :create, :edit, :update, :destroy] -- this shows all routes for resources
   resources :articles   # resources without options - will use all available routes
+
+  get 'signup', to: 'users#new'
+  post 'users', to: 'users#create'
+  resources :users, except: [:new]
 end
