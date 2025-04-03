@@ -28,7 +28,8 @@ class ArticlesController < ApplicationController
     # render plain: params[:article] # render to UI  
     #@article = Article.new(params.require[:article])
     @article = Article.new(article_params) # changed logic to use new article_params method
-    @article.user = User.first
+    # @article.user = User.first  ## change to current_user
+    @article.user = current_user
     # validation approach if @article.save has no errors then redirect
     if @article.save # save to table articles
 
