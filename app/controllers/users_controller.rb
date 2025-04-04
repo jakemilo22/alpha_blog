@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
 
   # this will execute set_article method before everything else & will only trigger for the selected methods only
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, only: [:edit, :update]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def show
     #@user = User.find(params[:id])  ## code removed as it is declared now under before_action
@@ -22,18 +24,7 @@ class UsersController < ApplicationController
     # @user = User.find(params[:id])   ## code removed as it is declared now under before_action
   end
 
-  def update
-    # @user = User.find(params[:id])   ## code removed as it is declared now under before_action 
-    if @user.update(user_params)
-      flash[:notice] = "Your account information was successfully updated"
-      redirect_to @user
-    else
-      render 'edit'
-    end 
-  end 
-
   def create
-    #debugger
     @user = User.new(user_params)
     
     if @user.save
@@ -45,6 +36,23 @@ class UsersController < ApplicationController
     end
   end 
 
+  def update
+    # @user = User.find(params[:id])   ## code removed as it is declared now under before_action 
+    if @user.update(user_params)
+      flash[:notice] = "Your account information was successfully updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end 
+  end 
+
+  def destroy
+     @user.destroy
+     session[:user_id] = nil
+     flash[:notice] = "Account and all associated articles successfully deleted"
+     redirect_to articles_path
+  end
+
   private
 
   def set_user
@@ -53,5 +61,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :email, :password)
+  end
+
+  def require_same_user
+    if current_user != @user
+      flash[:alert] = "You can only edit your own profile"
+      redirect_to @user
+    end 
   end
 end
